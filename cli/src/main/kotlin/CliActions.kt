@@ -26,7 +26,10 @@ import tokenizer.DelimiterTokenizer
     lateinit var actions: Array<Pair<Array<String>, (String) -> Unit>>
     actions =
       arrayOf(
-        Pair(arrayOf("exit", "stop", "q")) { exitProcess(0) },
+        Pair(arrayOf("exit", "stop", "q")) {
+          indexer.stop()
+          exitProcess(0)
+        },
         Pair(arrayOf("add", "a")) { arg ->
           GlobalScope.launch(dispatcher) {
             indexer.addToIndex(Path(arg))
