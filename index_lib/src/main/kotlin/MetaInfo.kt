@@ -1,3 +1,5 @@
 interface MetaInfo {
-  fun meta() : String
+  val meta: String
+
+  val state: String
 }

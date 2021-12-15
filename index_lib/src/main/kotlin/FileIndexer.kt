@@ -13,7 +13,9 @@ interface FileIndexer : MetaInfo, IndexerConfiguration {
 
   fun search(word: String): Flow<Path>
 
-  fun state(): String
+  fun run()
+
+  fun stop()
 }
 
 interface IndexerConfiguration {

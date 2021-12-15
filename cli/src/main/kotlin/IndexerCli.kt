@@ -11,7 +11,6 @@ fun main() {
                     index = IndexFactory.dumpableMapStorage(),
                     filter = FilterImpl())
   val actions = createCliActions(indexer)
-  // TODO in case of index rebuild do we need to rerun thread?
   thread { indexer.run() }
 
   printInfo(actions)

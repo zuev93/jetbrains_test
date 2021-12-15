@@ -5,5 +5,8 @@ import java.nio.file.Path
 
 interface Filter : MetaInfo {
 
-    fun isAllowedPath(path: Path): Boolean
+  /**
+   * Returns true if the given path is allowed otherwise false.
+   */
+  fun isAllowedPath(path: Path): Boolean
 }

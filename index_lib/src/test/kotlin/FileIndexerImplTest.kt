@@ -33,7 +33,7 @@ class FileIndexerImplTest {
     fun test_meta_returnsNotEmptyString() {
         val testSubject = FileIndexerImpl(tokenizer, indexStorage, filter)
 
-        val result = testSubject.meta()
+        val result = testSubject.meta
 
         assertFalse(result.isBlank())
     }
@@ -42,7 +42,7 @@ class FileIndexerImplTest {
     fun test_state_returnsNotEmptyString() {
         val testSubject = FileIndexerImpl(tokenizer, indexStorage, filter)
 
-        val result = testSubject.state()
+        val result = testSubject.state
 
         assertFalse(result.isBlank())
     }

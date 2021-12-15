@@ -10,7 +10,7 @@ class FilterImplTest : TestCase() {
 
   @Test
   fun test_meta_returnsNotEmptyString() {
-    val result = testSubject.meta()
+    val result = testSubject.meta
 
     kotlin.test.assertFalse(result.isBlank())
   }

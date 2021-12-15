@@ -40,26 +40,30 @@ class FileIndexerImpl constructor(
 
     private val indexingPaths: MutableMap<Path, Deferred<Unit>> = WeakHashMap()
 
-    override fun meta(): String {
-        return """
+    private var shouldExit = false
+
+    override val meta: String
+        get() = """
       File indexer is based on: 
       Storage: 
-      ${index.meta()}
+      ${index.meta}
       Tokenizer: 
-      ${tokenizer.meta()}
+      ${tokenizer.meta}
       Filter: 
-      ${filter.meta()}
+      ${filter.meta}
     """.trimIndent()
-    }
 
-
-    override fun state(): String {
-        return """
+    override val state: String
+        get() = """
       Watched directories count: ${watchKeys.size} 
-      Storage state:
-      ${index.state()}
+      Watched files count: ${watchedFiles.size} 
+       Storage: 
+        ${index.state}
+       Tokenizer: 
+        ${tokenizer.state}
+       Filter: 
+        ${filter.state}
     """.trimIndent()
-    }
 
     override suspend fun withStorage(index: IndexStorage): FileIndexer {
         val newIndexer = FileIndexerImpl(tokenizer, index, filter)
@@ -108,8 +112,8 @@ class FileIndexerImpl constructor(
         return index.search(word)
     }
 
-    fun run() {
-        while (true) {
+    override fun run() {
+        while (!shouldExit) {
             val watchKey = watchService.poll() ?: continue
 
             for (event in watchKey.pollEvents()) {
@@ -134,6 +138,10 @@ class FileIndexerImpl constructor(
                 break
             }
         }
+    }
+
+    override fun stop() {
+        shouldExit = true
     }
 
     @Synchronized

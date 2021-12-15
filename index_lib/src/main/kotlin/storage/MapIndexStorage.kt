@@ -9,32 +9,31 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-@OptIn(InternalCoroutinesApi::class)
-class MapIndexStorage(
+@OptIn(InternalCoroutinesApi::class) class MapIndexStorage(
   private val wordToPath: SimplifiedMultiMap<String, String>,
   private val pathToWord: SimplifiedMultiMap<String, String>,
 ) : IndexStorage {
 
   private val lock = ReentrantReadWriteLock()
 
-  override fun state(): String {
-    return """
+
+  override val meta: String
+    get() = """
       Words: ${wordToPath.state}
       Paths: ${pathToWord.state}
     """.trimIndent()
-  }
 
-  override fun meta(): String {
-    return """
+  override val state: String
+    get() = """
       MapStorage - storage based on map like structure.
       Performance and memory consumption depends on underlying implementation
-      Inner storage: ${wordToPath.meta()}
+      Inner storage: ${wordToPath.meta}
     """.trimIndent()
-  }
 
   override fun search(word: String): Flow<Path> {
     return lock.read {
-      flowOf(*(wordToPath[word]?.map { Path.of(it) }?.toTypedArray() ?: arrayOf()))
+      flowOf(*(wordToPath[word]?.map { Path.of(it) }?.toTypedArray()
+        ?: arrayOf()))
     }
   }
 

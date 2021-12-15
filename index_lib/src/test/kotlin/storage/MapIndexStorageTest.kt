@@ -17,7 +17,7 @@ class MapIndexStorageTest : TestCase() {
 
   @Test
   fun test_meta_returnsNotEmptyString() {
-    val result = testSubject.meta()
+    val result = testSubject.meta
 
     kotlin.test.assertFalse(result.isBlank())
   }
@@ -25,7 +25,7 @@ class MapIndexStorageTest : TestCase() {
   @Test
   fun test_state_returnsNotEmptyString() {
 
-    val result = testSubject.state()
+    val result = testSubject.state
 
     kotlin.test.assertFalse(result.isBlank())
   }

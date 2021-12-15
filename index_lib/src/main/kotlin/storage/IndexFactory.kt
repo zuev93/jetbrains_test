@@ -1,7 +1,18 @@
 package storage
 
+/**
+ * Factory for getting specific storage implementations.
+ */
 object IndexFactory {
-  fun simpleMapStorage(): MapIndexStorage = MapIndexStorage(MutableMapWrap(), MutableMapWrap())
+  /**
+   * Storage based on HashMap.
+   */
+  fun simpleMapStorage(): MapIndexStorage =
+    MapIndexStorage(MutableMapWrap(), MutableMapWrap())
 
-  fun dumpableMapStorage(): MapIndexStorage = MapIndexStorage(DumpableMap(), DumpableMap())
+  /**
+   * Storage based on dumpable map. Memory tolerant.
+   */
+  fun dumpableMapStorage(): MapIndexStorage =
+    MapIndexStorage(DumpableMap(), DumpableMap())
 }
